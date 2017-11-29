@@ -19,6 +19,7 @@ apps:
     daemon: simple
   sentry-worker:
     environment:
+      C_FORCE_ROOT: "true"
       SENTRY_CONF: $SNAP_COMMON/etc/sentry
     command: bin/sentry run worker
     daemon: simple
