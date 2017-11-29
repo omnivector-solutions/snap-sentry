@@ -1,0 +1,62 @@
+name: sentry
+version: '0.1' 
+summary: sentry
+description: |
+  Sentry
+
+grade: stable
+confinement: classic
+
+apps:
+  sentry-cli:
+    environment:
+      SENTRY_CONF: $SNAP_COMMON/etc/sentry
+    command: bin/sentry
+  sentry-web:
+    environment:
+      SENTRY_CONF: $SNAP_COMMON/etc/sentry
+    command: bin/sentry run web
+    daemon: simple
+  sentry-worker:
+    environment:
+      SENTRY_CONF: $SNAP_COMMON/etc/sentry
+    command: bin/sentry run worker
+    daemon: simple
+  sentry-cron:
+    environment:
+      SENTRY_CONF: $SNAP_COMMON/etc/sentry
+    command: bin/sentry run cron
+    daemon: simple
+
+parts:
+  sentry:
+#    after: [nginx-wrap]
+    plugin: python
+    python-version: python2
+    python-packages: [sentry]
+    build-packages:
+      - python-setuptools
+      - python-dev
+      - libxslt1-dev
+      - gcc
+      - g++
+      - libffi-dev
+      - libjpeg-dev
+      - libxml2-dev
+      - libxslt-dev
+      - libyaml-dev
+      - libpq-dev
+    stage-packages:
+      - python-setuptools
+      - python-dev
+      - libxslt1-dev
+      - gcc
+      - g++
+      - libffi-dev
+      - libjpeg-dev
+      - libxml2-dev
+      - libxslt-dev
+      - libyaml-dev
+      - libpq-dev
+    install: |
+      $SNAPCRAFT_PART_INSTALL/bin/sentry init ${SNAPCRAFT_PART_INSTALL}/etc/sentry
