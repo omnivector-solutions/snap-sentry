@@ -34,7 +34,7 @@ parts:
 #    after: [nginx-wrap]
     plugin: python
     python-version: python2
-    python-packages: [sentry]
+    python-packages: [sentry,sentry-plugins]
     build-packages:
       - python-setuptools
       - python-dev
