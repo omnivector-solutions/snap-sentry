@@ -31,7 +31,6 @@ apps:
 
 parts:
   sentry:
-#    after: [nginx-wrap]
     plugin: python
     python-version: python2
     python-packages: [sentry,sentry-plugins]
@@ -59,5 +58,6 @@ parts:
       - libxslt-dev
       - libyaml-dev
       - libpq-dev
-    install: |
-      $SNAPCRAFT_PART_INSTALL/bin/sentry init ${SNAPCRAFT_PART_INSTALL}/etc/sentry
+    override-build: |
+      snapcraftctl build
+      $SNAPCRAFT_PART_INSTALL/bin/sentry init $SNAPCRAFT_PART_INSTALL/etc/sentry
